@@ -1,114 +1,83 @@
-# 🤖 SimDatabaseBot
+# 📱 SimDatabaseBot
 
-![Python](https://img.shields.io/badge/Python-3.10-blue)
-![Status](https://img.shields.io/badge/Status-Active-success)
-![Version](https://img.shields.io/badge/Version-1.0-orange)
-![License](https://img.shields.io/badge/License-Personal-red)
-
-A powerful Telegram bot for SIM database lookup with VIP system, daily limits, and admin controls.
-
----
+A Telegram bot built with Python that allows users to search SIM database information with daily limits, VIP system, and force channel join system.
 
 ## 🚀 Features
 
-✔ SIM Database Search  
-✔ Daily Free Limit System  
-✔ VIP Unlimited Searches  
-✔ Force Channel Join  
-✔ Search History  
-✔ Auto Delete Results  
-✔ Admin Control Panel  
-✔ SQLite Database  
-✔ Payment Verification System  
+- 🔍 SIM database lookup
+- 👥 Force join channels before using bot
+- 💎 VIP system (Unlimited searches)
+- 🎁 Daily free search limit
+- 💰 Payment system (JazzCash / EasyPaisa)
+- 📊 User database (SQLite)
+- 📝 Search history saving
+- ⏳ Auto delete results for privacy
+- 🛡 Admin controls
 
----
+## 🛠 Requirements
 
-## 📜 Commands
-
-### 👤 User Commands
-
-| Command | Description |
-|---------|-------------|
-| /start | Start bot |
-| /help | Show commands |
-| /profile | Show profile |
-| /balance | Check searches |
-| /daily | Claim daily searches |
-| /search | Search number |
-| /vip | VIP info |
-| /support | Contact admin |
-
----
-
-### 🛡 Admin Commands
-
-| Command | Description |
-|---------|-------------|
-| /admin | Admin panel |
-| /vipadd | Add VIP user |
-| /vipremove | Remove VIP |
-| /broadcast | Send message |
-| /stats | Bot statistics |
-
----
-
-## 🛠 Installation
-
-### Step 1 – Clone repo
-
-```bash
-git clone https://github.com/TermuxT00LsByAnonymous/SIMDatabaseBot.git
-```
-
-### Step 2 – Open folder
-
-```bash
-cd SimDatabaseBot
-```
-
-### Step 3 – Install requirements
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Step 4 – Configure bot
+## 📦 Dependencies
 
-Edit config:
+Main libraries used:
+
+- python-telegram-bot
+- aiohttp
+- aiosqlite
+- asyncio
+
+## ⚙️ Configuration
+
+Before running the bot, edit these values in the script:
 
 ```python
-BOT_TOKEN = "YOUR_TOKEN"
+BOT_TOKEN = "YOUR_BOT_TOKEN"
+
+CHANNEL_1 = "@YOUR_CHANNEL"
+CHANNEL_2 = "@YOUR_CHANNEL"
+
 ADMIN_ID = YOUR_ID
-CHANNEL_1 = "@CHANNEL"
-CHANNEL_2 = "@CHANNEL"
-API_URL = "API_LINK"
+ADMIN_USERNAME = "YOUR_USERNAME"
+
+API_URL = "YOUR_API"
+
+VIP_PRICE = "300 PKR"
+
+JAZZCASH_NUMBER = "YOUR_NUMBER"
+EASYPAISA_NUMBER = "YOUR_NUMBER"
 ```
 
-### Step 5 – Run bot
+## ▶️ Running the Bot
+
+Run the bot with:
 
 ```bash
 python SimDataBase.py
 ```
 
----
+## 📊 Limits
+
+- Free users: 5 searches per day
+- VIP users: Unlimited searches
 
 ## 💎 VIP System
 
-Free Users:
-- 5 searches daily
-
-VIP Users:
-- Unlimited searches
+Users can buy VIP for unlimited searches.
 
 Payment Methods:
 - JazzCash
 - EasyPaisa
 
----
+(Admin manually approves VIP)
 
 ## 🗄 Database
 
-Database file auto created:
+Bot automatically creates:
 
 ```
 bot.db
@@ -118,34 +87,20 @@ Tables:
 - users
 - history
 
----
+## 🔐 Privacy
 
-## 🔒 Security
-
-- Auto delete results
-- User verification
-- Force join system
-- Admin approval system
-
----
+- Results auto delete after some time
+- Search history stored for admin use
+- No public data sharing
 
 ## 👨‍💻 Developer
 
-Telegram:
-```
-@I_Dont_Know99999
-```
+Telegram: @I_Dont_Know99999
 
----
+## ⚠️ Disclaimer
 
-## ⚠ Disclaimer
-
-This project is made for educational purposes only. Developer is not responsible for misuse.
-
----
+This bot is for educational purposes only. Developer is not responsible for misuse.
 
 ## ⭐ Support
 
-If you like this project:
-
-Give it a ⭐ on GitHub.
+If you like this project, consider giving it a star on GitHub.
