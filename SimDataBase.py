@@ -220,7 +220,7 @@ async def admin_msg(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def search(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
-    uid=update.effective_user.id
+    uid = update.effective_user.id
 
     if not await check_channels(context.bot, uid):
         await update.message.reply_text("❌ Channel join required.")
@@ -230,7 +230,8 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("❌ Daily limit finished.")
         return
 
-    number=clean_number(update.message.text)
+    text = update.effective_message.text
+    number = clean_number(text)
 
     loading = await update.message.reply_text("⚡ Initializing Cyber Scan...")
 
@@ -325,7 +326,10 @@ app.add_handler(CallbackQueryHandler(paid, pattern="paid"))
 
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, search))
 
-app.post_init = lambda app: init_db()
+async def on_start(app):
+    await init_db()
+
+app.post_init = on_start
 
 print("🔥 CYBER LEVEL BOT RUNNING...")
 app.run_polling()
