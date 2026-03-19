@@ -13,6 +13,7 @@ from telegram.ext import (
     ContextTypes
 )
 
+# ----------------- CONFIG -----------------
 BOT_TOKEN = "8655740565:AAHGDlK53266pFTp3bTUY42j1n-MSqx9mAQ"
 
 CHANNEL_1 = "@TERMUXTOOLSHUB"
@@ -31,7 +32,9 @@ DAILY_LIMIT = 5
 AUTO_DELETE_SEC = 300
 
 pending_payment = {}
+# -----------------------------------------
 
+# ---------------- DATABASE ----------------
 async def init_db():
     async with aiosqlite.connect("bot.db") as db:
         await db.execute("""
@@ -57,7 +60,9 @@ async def add_user(uid):
             (uid,str(date.today()))
         )
         await db.commit()
+# -----------------------------------------
 
+# ---------------- HELPERS ----------------
 def clean_number(text):
     d = re.sub(r"\D","",text)
     if d.startswith("92"):
@@ -112,6 +117,15 @@ async def remaining(uid):
             r = await c.fetchone()
     return DAILY_LIMIT - (r[0] if r else 0)
 
+async def auto_delete(msg):
+    await asyncio.sleep(AUTO_DELETE_SEC)
+    try:
+        await msg.delete()
+    except:
+        pass
+# -----------------------------------------
+
+# ---------------- COMMANDS ----------------
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     uid = update.effective_user.id
     await add_user(uid)
@@ -242,8 +256,6 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🔊 Searching Adress 🗺️................."
     ]
 
-    
-
     for f in frames:
         await asyncio.sleep(0.9)
         try:
@@ -260,7 +272,6 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not records:
         await loading.edit_text("❌ No record.")
         return
-
 
     await loading.delete()
 
@@ -303,33 +314,33 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         m=await update.message.reply_text(msg,reply_markup=InlineKeyboardMarkup(kb))
         asyncio.create_task(auto_delete(m))
+# -----------------------------------------
 
-async def auto_delete(msg):
-    await asyncio.sleep(AUTO_DELETE_SEC)
-    try:
-        await msg.delete()
-    except:
-        pass
+# ----------------- APP INIT -----------------
+app = ApplicationBuilder().token(BOT_TOKEN).build()
 
-app=ApplicationBuilder().token(BOT_TOKEN).build()
-
+# Commands
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CommandHandler("addvip", add_vip))
 app.add_handler(CommandHandler("removevip", remove_vip))
 app.add_handler(CommandHandler("msg", admin_msg))
 
+# CallbackQuery
 app.add_handler(CallbackQueryHandler(verify, pattern="verify"))
 app.add_handler(CallbackQueryHandler(again, pattern="again"))
 app.add_handler(CallbackQueryHandler(show_history, pattern="history"))
 app.add_handler(CallbackQueryHandler(buy_vip, pattern="buyvip"))
 app.add_handler(CallbackQueryHandler(paid, pattern="paid"))
 
+# Text messages
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, search))
+# -----------------------------------------
 
-async def on_start(app):
+# --------------- MAIN -----------------
+async def main():
     await init_db()
+    print("🔥 CYBER LEVEL BOT RUNNING...")
+    await app.run_polling()
 
-app.post_init = on_start
-
-print("🔥 CYBER LEVEL BOT RUNNING...")
-app.run_polling()
+asyncio.run(main())
+# -----------------------------------------
