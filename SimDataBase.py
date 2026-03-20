@@ -1,14 +1,3 @@
-import shutil
-import os
-
-# __pycache__ delete karne ka automatic code
-for root, dirs, files in os.walk("."):
-    for d in dirs:
-        if d == "__pycache__":
-            shutil.rmtree(os.path.join(root, d))
-            print(f"Deleted {os.path.join(root, d)}")
-
-# Baaki imports
 import aiohttp
 import aiosqlite
 import asyncio
