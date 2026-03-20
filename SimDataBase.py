@@ -7,7 +7,8 @@ for root, dirs, files in os.walk("."):
         if d == "__pycache__":
             shutil.rmtree(os.path.join(root, d))
             print(f"Deleted {os.path.join(root, d)}")
-//////////
+
+# Baaki imports
 import aiohttp
 import aiosqlite
 import asyncio
